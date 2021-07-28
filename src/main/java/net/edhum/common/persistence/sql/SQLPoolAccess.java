@@ -9,6 +9,7 @@ import net.edhum.common.persistence.sql.credentials.UnavailableSQLCredentials;
 import net.edhum.common.persistence.sql.exception.SQLInitialisationException;
 import net.edhum.common.plugin.annotations.PluginLogger;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -24,7 +25,7 @@ public class SQLPoolAccess implements SQLAccess {
 
         try {
             credentials = credentialsProvider.get();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
 
             logger.warning("An exception has occurred while trying to read the redis credentials file." +

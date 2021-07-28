@@ -22,7 +22,7 @@ dependencies {
     implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.31'
 
     // Persistence
-    implementation group: 'com.zaxxer', name: 'HikariCP', version: '4.0.3' // SQL
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '5.0.0' // SQL
 
     // YAML
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.29'
