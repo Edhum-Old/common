@@ -28,8 +28,8 @@ public class SQLPoolAccess implements SQLAccess {
         } catch (IOException e) {
             e.printStackTrace();
 
-            logger.warning("An exception has occurred while trying to read the redis credentials file." +
-                    "The default redis credentials will be used.");
+            logger.warning("An exception has occurred while trying to read the sql credentials file." + " " +
+                    "The default sql credentials will be used.");
 
             credentials = UnavailableSQLCredentials.getDefaultSQLCredentials();
         }

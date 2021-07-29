@@ -20,19 +20,14 @@ public class SQLPostExecutor {
         this.shutdownHooks = shutdownHooks;
     }
 
-    @Inject
-    public void init() {
-        try {
-            this.sqlAccess.init();
-            this.shutdownHooks.add(() -> {
-                this.sqlAccess.close();
+    public void init() throws SQLInitialisationException {
+        this.sqlAccess.init();
+        this.shutdownHooks.add(() -> {
+            this.sqlAccess.close();
 
-                this.logger.info("The SQL access was successfully closed");
-            });
+            this.logger.info("The SQL access was successfully closed");
+        });
 
-            this.logger.info("The SQL access was successfully initialised");
-        } catch (SQLInitialisationException e) {
-            e.printStackTrace();
-        }
+        this.logger.info("The SQL access was successfully initialised");
     }
 }

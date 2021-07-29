@@ -1,8 +1,12 @@
 package net.edhum.common.i18n.language;
 
-import javax.inject.Qualifier;
+import com.google.inject.BindingAnnotation;
 
-@Qualifier
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@BindingAnnotation
+@Retention(RetentionPolicy.RUNTIME)
 public @interface ServerLanguage {
 
 }
