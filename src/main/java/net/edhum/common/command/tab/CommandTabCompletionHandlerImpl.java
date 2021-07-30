@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHandler {
 
@@ -50,37 +49,46 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
 
             return this.handleTabCompletion(childNode, sender, buffer);
         } else {
-            List<String> nodesTabCompletion = new ArrayList<>(node.getChildren().stream()
+            List<CommandNode> matchingChildNodes = new ArrayList<>(node.getChildren().stream()
                     .filter(childNode -> {
                         Command childCommand = childNode.getCommand();
 
                         return childCommand.getName().startsWith(argument) && this.commandPermissionHandler.checkPermissions(childCommand, sender);
                     })
-                    .map(childNode -> childNode.getCommand().getName())
                     .toList());
 
-            Collections.sort(nodesTabCompletion); // Sort the nodes list alphabetically
 
-            List<String> argumentsTabCompletion = new ArrayList<>();
+            if (!matchingChildNodes.isEmpty()) {
+                // Sender is tipping a command node
 
-            List<Argument> commandArguments = command.getArguments();
+                return matchingChildNodes.stream()
+                        .map(childNode -> childNode.getCommand().getName())
+                        .sorted()
+                        .toList();
+            } else {
+                // Sender is tipping an argument
 
-            String[] arguments = buffer.remains();
+                List<String> tabCompletion = new ArrayList<>();
 
-            long requiredCommandArguments = commandArguments.stream()
-                    .filter(Argument::isRequired)
-                    .count();
+                List<Argument> commandArguments = command.getArguments();
 
-            if (arguments.length > requiredCommandArguments && arguments.length < commandArguments.size()) {
-                argumentsTabCompletion.addAll(commandArguments.get(arguments.length - 1).getParser().tabComplete(sender).stream()
-                        .filter(s ->
-                                s.startsWith(arguments[arguments.length - 1]))
-                        .collect(Collectors.toList()));
+                String[] arguments = buffer.remains();
+
+                long requiredCommandArguments = commandArguments.stream()
+                        .filter(Argument::isRequired)
+                        .count();
+
+                if (arguments.length > requiredCommandArguments && arguments.length < commandArguments.size()) {
+                    tabCompletion.addAll(commandArguments.get(arguments.length - 1).getParser().tabComplete(sender).stream()
+                            .filter(s ->
+                                    s.startsWith(arguments[arguments.length - 1]))
+                            .collect(Collectors.toList()));
+                }
+
+                Collections.sort(tabCompletion); // Sort the arguments list alphabetically
+
+                return tabCompletion;
             }
-
-            Collections.sort(argumentsTabCompletion); // Sort the arguments list alphabetically
-
-            return Stream.concat(nodesTabCompletion.stream(), argumentsTabCompletion.stream()).toList();
         }
     }
 }
