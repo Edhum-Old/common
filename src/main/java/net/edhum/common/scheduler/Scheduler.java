@@ -8,6 +8,8 @@ public interface Scheduler {
 
     void runTaskLater(Runnable runnable, long delay, TimeUnit timeUnit);
 
+    void runTaskLater(Runnable runnable, long delay);
+
     void runRepeatingTask(Runnable runnable, long delay, long period, TimeUnit timeUnit);
 
     void runRepeatingTask(Runnable runnable, long period, TimeUnit timeUnit);
