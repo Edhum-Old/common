@@ -9,17 +9,17 @@ import java.util.UUID;
 public interface ReceiverContextFactory {
 
     @Named("single")
-    ReceiverContext singleReceiver(Player receiver);
+    ReceiverContext single(Player receiver);
 
     @Named("single")
-    ReceiverContext singleReceiver(UUID receiver);
+    ReceiverContext single(UUID receiver);
 
     @Named("broadcast")
-    ReceiverContext broadcastReceiver(Collection<Player> excepts);
+    ReceiverContext broadcast(Collection<Player> excepts);
 
     @Named("broadcast")
-    ReceiverContext broadcastReceiver(Player excepts);
+    ReceiverContext broadcast(Player excepts);
 
     @Named("broadcast")
-    ReceiverContext broadcastReceiver();
+    ReceiverContext broadcast();
 }

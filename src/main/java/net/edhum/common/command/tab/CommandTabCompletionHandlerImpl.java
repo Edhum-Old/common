@@ -26,7 +26,7 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
     public List<String> handleTabCompletion(CommandNode node, CommandSender sender, StringBuffer buffer) {
         Command command = node.getCommand();
 
-        if (!this.commandPermissionHandler.checkPermissions(command, sender)) {
+        if (!this.commandPermissionHandler.canExecute(command, sender)) {
             return Collections.emptyList();
         }
 
@@ -53,7 +53,7 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
                     .filter(childNode -> {
                         Command childCommand = childNode.getCommand();
 
-                        return childCommand.getName().startsWith(argument) && this.commandPermissionHandler.checkPermissions(childCommand, sender);
+                        return childCommand.getName().startsWith(argument) && this.commandPermissionHandler.canExecute(childCommand, sender);
                     })
                     .toList());
 

@@ -9,7 +9,7 @@ import java.util.Optional;
 public class CommandPermissionHandlerImpl implements CommandPermissionHandler {
 
     @Override
-    public boolean checkPermissions(Command command, CommandSender sender) {
+    public boolean canExecute(Command command, CommandSender sender) {
         return this.hasPermission(command, sender).isEmpty() && this.checkRequirements(command, sender).isEmpty();
     }
 

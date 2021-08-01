@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface CommandPermissionHandler {
 
-    boolean checkPermissions(Command command, CommandSender sender);
+    boolean canExecute(Command command, CommandSender sender);
 
     Optional<String> hasPermission(Command command, CommandSender sender);
 

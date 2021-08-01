@@ -14,29 +14,29 @@ import java.util.logging.Logger;
 public class CommandDisablerImpl implements CommandDisabler {
 
     private final CommandRegisterer commandRegisterer;
-    private final DisabledCommandList disabledCommands;
+    private final DisabledCommandList disabledCommandList;
 
     @Inject
     public CommandDisablerImpl(@PluginLogger Logger logger, CommandRegisterer commandRegisterer, DisabledCommandListProvider disabledCommandListProvider) {
         this.commandRegisterer = commandRegisterer;
 
-        DisabledCommandList disabledCommands;
+        DisabledCommandList disabledCommandList;
 
         try {
-            disabledCommands = disabledCommandListProvider.get();
+            disabledCommandList = disabledCommandListProvider.get();
         } catch (IOException e) {
             e.printStackTrace();
             logger.warning("An exception occurred while attempting to get the disabled commands. The default one will be used instead");
 
-            disabledCommands = UnavailableDisabledCommandList.getDefaultDisabledCommandList();
+            disabledCommandList = UnavailableDisabledCommandList.getDefaultDisabledCommandList();
         }
 
-        this.disabledCommands = disabledCommands;
+        this.disabledCommandList = disabledCommandList;
     }
 
     @Override
     public void disableCommands() {
-        List<String> disabledCommands = this.disabledCommands.getDisabledCommands();
+        List<String> disabledCommands = this.disabledCommandList.getDisabledCommands();
 
         for (String disabledCommand : disabledCommands) {
             this.commandRegisterer.unregisterCommand(disabledCommand);
