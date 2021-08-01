@@ -10,10 +10,7 @@ import net.edhum.common.command.argument.exception.ArgumentException;
 import net.edhum.common.command.execution.buffer.ArgumentBuffer;
 import net.edhum.common.command.execution.buffer.ArgumentBufferFactory;
 import net.edhum.common.command.execution.context.CommandContext;
-import net.edhum.common.command.execution.exceptions.AmbiguousNodesException;
-import net.edhum.common.command.execution.exceptions.InvalidRequirementException;
-import net.edhum.common.command.execution.exceptions.InvalidPermissionException;
-import net.edhum.common.command.execution.exceptions.InvalidSyntaxException;
+import net.edhum.common.command.execution.exceptions.*;
 import net.edhum.common.command.execution.result.CommandResult;
 import net.edhum.common.command.execution.result.CommandResultHandler;
 import net.edhum.common.command.permission.CommandPermissionHandler;
@@ -40,7 +37,7 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
     }
 
     @Override
-    public void handleExecution(CommandNode node, CommandSender sender, StringBuffer buffer) throws ArgumentException, InvalidRequirementException, InvalidPermissionException, InvalidSyntaxException {
+    public void handleExecution(CommandNode node, CommandSender sender, StringBuffer buffer) throws ArgumentException, InvalidNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
         Command command = node.getCommand();
 
         Optional<String> optionalInvalidPermission = this.commandPermissionHandler.hasPermission(command, sender);
@@ -66,20 +63,35 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
                         return childCommand.getName().equalsIgnoreCase(argument) || childCommand.getAliases().contains(argument);
                     })
                     .toList();
+
+            if (node.hasChildren() && childNodes.isEmpty()) {
+                throw new InvalidNodeException(node);
+            }
         }
 
-        if (childNodes.size() > 1) {
-            // Ambiguous nodes
-            throw new AmbiguousNodesException(childNodes);
-        }
+        if (!childNodes.isEmpty()) {
+            buffer.consume();
 
-        if (childNodes.size() == 1) {
+            if (childNodes.size() > 1) {
+                // Ambiguous nodes
+                throw new AmbiguousNodesException(childNodes);
+            }
+
             CommandNode childNode = childNodes.get(0);
             this.handleExecution(childNode, sender, buffer);
         } else {
             List<Argument> commandArguments = command.getArguments();
 
             String[] arguments = buffer.remains();
+
+            long requiredArguments = commandArguments.stream()
+                    .filter(Argument::isRequired)
+                    .count();
+
+            if (arguments.length < requiredArguments || arguments.length > commandArguments.size()) {
+                throw new InvalidSyntaxException(node);
+            }
+
             List<Object> parsedArguments = new ArrayList<>();
 
             for (int i = 0; i < arguments.length; i++) {
@@ -89,14 +101,6 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
 
                 Object parsedArgument = commandArgumentParser.get(sender, argument);
                 parsedArguments.add(parsedArgument);
-            }
-
-            long requiredArguments = commandArguments.stream()
-                    .filter(Argument::isRequired)
-                    .count();
-
-            if (arguments.length < requiredArguments || arguments.length > commandArguments.size()) {
-                throw new InvalidSyntaxException(node);
             }
 
             CommandContext context = new CommandContext(command, sender);

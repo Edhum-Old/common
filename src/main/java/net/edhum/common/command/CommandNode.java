@@ -1,5 +1,6 @@
 package net.edhum.common.command;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,9 +11,9 @@ public class CommandNode {
     private final Command command;
     private final List<CommandNode> children;
 
-    public CommandNode(Command command, List<CommandNode> children) {
+    public CommandNode(Command command) {
         this.command = command;
-        this.children = children;
+        this.children = new ArrayList<>();
     }
 
     public boolean hasChildren() {

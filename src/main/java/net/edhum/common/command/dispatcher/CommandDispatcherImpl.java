@@ -5,6 +5,7 @@ import net.edhum.common.command.CommandTree;
 import net.edhum.common.command.StringBuffer;
 import net.edhum.common.command.argument.exception.ArgumentException;
 import net.edhum.common.command.execution.CommandExecutionHandler;
+import net.edhum.common.command.execution.exceptions.InvalidNodeException;
 import net.edhum.common.command.execution.exceptions.InvalidRequirementException;
 import net.edhum.common.command.execution.exceptions.InvalidPermissionException;
 import net.edhum.common.command.execution.exceptions.InvalidSyntaxException;
@@ -25,7 +26,7 @@ public class CommandDispatcherImpl implements CommandDispatcher {
     }
 
     @Override
-    public void dispatchExecution(CommandTree tree, CommandSender sender, String[] args) throws ArgumentException, InvalidRequirementException, InvalidPermissionException, InvalidSyntaxException {
+    public void dispatchExecution(CommandTree tree, CommandSender sender, String[] args) throws ArgumentException, InvalidNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
         StringBuffer buffer = this.createBuffer(args);
 
         this.commandExecutionHandler.handleExecution(tree.getRoot(), sender, buffer);

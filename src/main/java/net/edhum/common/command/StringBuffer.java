@@ -17,6 +17,14 @@ public class StringBuffer {
         this(input.split(" "));
     }
 
+    public void consume() {
+        if (this.isEmpty()) {
+            throw new NoSuchElementException("No element remaining in the buffer");
+        }
+
+        this.cursor++;
+    }
+
     public boolean isEmpty() {
         return this.cursor >= this.input.length;
     }
@@ -38,5 +46,13 @@ public class StringBuffer {
         this.cursor = this.input.length;
 
         return remains;
+    }
+
+    @Override
+    public String toString() {
+        return "StringBuffer{" +
+                "input=" + Arrays.toString(input) +
+                ", cursor=" + cursor +
+                '}';
     }
 }
