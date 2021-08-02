@@ -1,8 +1,25 @@
 package net.edhum.common.group;
 
-public interface Group {
+public enum Group {
 
-    int getId();
+    PLAYER(1, "player"),
+    BUILDER(2, "builder"),
+    DEVELOPER(3, "developer"),
+    ADMINISTRATOR(4, "administrator");
 
-    String getName();
+    private final int id;
+    private final String tag;
+
+    Group(int id, String tag) {
+        this.id = id;
+        this.tag = tag;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
 }
