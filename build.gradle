@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 
     maven {
-        url 'https://papermc.io/repo/repository/maven-public/'
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
     }
 }
 
@@ -33,7 +33,7 @@ dependencies {
     implementation group: 'org.yaml', name: 'snakeyaml', version: '1.29'
 
     // Chat
-    api group: 'net.kyori', name: 'adventure-api', version: '4.8.1'
+    api group: 'net.md-5', name: 'bungeecord-chat', version: '1.17-R0.1-SNAPSHOT'
 }
 
 java {
