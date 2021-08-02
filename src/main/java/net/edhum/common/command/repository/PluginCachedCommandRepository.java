@@ -50,4 +50,13 @@ public class PluginCachedCommandRepository implements CommandRepository {
                 .filter(predicate)
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    public void remove(String name) {
+        if (!this.commands.containsKey(name)) {
+            throw new IllegalArgumentException(String.format("No command with name %s has been found", name));
+        }
+
+        this.commands.remove(name);
+    }
 }

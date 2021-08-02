@@ -1,7 +1,7 @@
 package net.edhum.common.command.sender;
 
 import net.edhum.common.i18n.Language;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.text.Component;
 
 public abstract class AbstractCommandSender implements CommandSender {
 
@@ -13,7 +13,7 @@ public abstract class AbstractCommandSender implements CommandSender {
 
     @Override
     public void sendMessage(String message) {
-        this.sendMessage(TextComponent.fromLegacyText(message));
+        this.sendMessage(Component.text(message));
     }
 
     @Override

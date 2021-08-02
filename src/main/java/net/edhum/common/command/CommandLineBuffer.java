@@ -47,12 +47,4 @@ public class CommandLineBuffer {
 
         return remains;
     }
-
-    @Override
-    public String toString() {
-        return "StringBuffer{" +
-                "input=" + Arrays.toString(input) +
-                ", cursor=" + cursor +
-                '}';
-    }
 }

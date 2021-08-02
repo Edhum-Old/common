@@ -5,6 +5,7 @@ import net.edhum.common.command.disabler.list.DisabledCommandList;
 import net.edhum.common.command.disabler.list.DisabledCommandListProvider;
 import net.edhum.common.command.disabler.list.UnavailableDisabledCommandList;
 import net.edhum.common.command.registerer.CommandRegisterer;
+import net.edhum.common.command.repository.CommandRepository;
 import net.edhum.common.plugin.annotations.PluginLogger;
 
 import java.io.IOException;
@@ -13,13 +14,12 @@ import java.util.logging.Logger;
 
 public class CommandDisablerImpl implements CommandDisabler {
 
-    private final CommandRegisterer commandRegisterer;
     private final DisabledCommandList disabledCommandList;
+    private final CommandRepository commandRepository;
+    private final CommandRegisterer commandRegisterer;
 
     @Inject
-    public CommandDisablerImpl(@PluginLogger Logger logger, CommandRegisterer commandRegisterer, DisabledCommandListProvider disabledCommandListProvider) {
-        this.commandRegisterer = commandRegisterer;
-
+    public CommandDisablerImpl(@PluginLogger Logger logger, DisabledCommandListProvider disabledCommandListProvider, CommandRepository commandRepository, CommandRegisterer commandRegisterer) {
         DisabledCommandList disabledCommandList;
 
         try {
@@ -32,6 +32,9 @@ public class CommandDisablerImpl implements CommandDisabler {
         }
 
         this.disabledCommandList = disabledCommandList;
+
+        this.commandRepository = commandRepository;
+        this.commandRegisterer = commandRegisterer;
     }
 
     @Override
@@ -39,6 +42,7 @@ public class CommandDisablerImpl implements CommandDisabler {
         List<String> disabledCommands = this.disabledCommandList.getDisabledCommands();
 
         for (String disabledCommand : disabledCommands) {
+            this.commandRepository.remove(disabledCommand);
             this.commandRegisterer.unregisterCommand(disabledCommand);
         }
     }

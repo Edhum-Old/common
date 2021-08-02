@@ -6,16 +6,14 @@ import java.util.Collection;
 
 public abstract class AbstractPlayerCommandSender extends AbstractCommandSender implements CommandSender {
 
-    protected final Collection<String> permissions;
+    protected Collection<String> permissions;
 
-    public AbstractPlayerCommandSender(Language language, Collection<String> permissions) {
+    public AbstractPlayerCommandSender(Language language) {
         super(language);
-
-        this.permissions = permissions;
     }
 
     @Override
     public boolean hasPermission(String permission) {
-        return super.hasPermission(permission) || this.permissions.contains(permission);
+        return super.hasPermission(permission) || this.permissions != null && this.permissions.contains(permission);
     }
 }

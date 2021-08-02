@@ -2,6 +2,7 @@ package net.edhum.common.i18n;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public enum Language {
 
@@ -16,9 +17,9 @@ public enum Language {
         this.tag = tag;
     }
 
-    public Optional<Language> findLanguage(int id) {
+    public static Optional<Language> find(Predicate<Language> predicate) {
         return Arrays.stream(values())
-                .filter(language -> language.id == id)
+                .filter(predicate)
                 .findAny();
     }
 

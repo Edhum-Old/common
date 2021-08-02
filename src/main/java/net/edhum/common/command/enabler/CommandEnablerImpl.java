@@ -1,6 +1,7 @@
-package net.edhum.common.command;
+package net.edhum.common.command.enabler;
 
 import com.google.inject.Inject;
+import net.edhum.common.command.CommandTree;
 import net.edhum.common.command.disabler.list.DisabledCommandList;
 import net.edhum.common.command.disabler.list.DisabledCommandListProvider;
 import net.edhum.common.command.disabler.list.UnavailableDisabledCommandList;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class CommandPostExecutor {
+public class CommandEnablerImpl implements CommandEnabler {
 
     private final Logger logger;
     private final Set<CommandTree> commands;
@@ -21,17 +22,18 @@ public class CommandPostExecutor {
     private final CommandRepository commandRepository;
 
     @Inject
-    public CommandPostExecutor(@PluginLogger Logger logger,
-                               Set<CommandTree> commands,
-                               CommandRegisterer commandRegisterer,
-                               CommandRepository commandRepository) {
+    public CommandEnablerImpl(@PluginLogger Logger logger,
+                              Set<CommandTree> commands,
+                              CommandRegisterer commandRegisterer,
+                              CommandRepository commandRepository) {
         this.logger = logger;
         this.commands = commands;
         this.commandRegisterer = commandRegisterer;
         this.commandRepository = commandRepository;
     }
 
-    public void init() {
+    @Override
+    public void enableCommands() {
         for (CommandTree command : commands) {
             this.commandRegisterer.registerCommand(command);
             this.commandRepository.add(command);

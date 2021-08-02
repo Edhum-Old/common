@@ -15,4 +15,6 @@ public interface CommandRepository {
     Optional<CommandTree> find(Predicate<CommandTree> predicate);
 
     Collection<CommandTree> findAll(Predicate<CommandTree> predicate);
+
+    void remove(String name);
 }

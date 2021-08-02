@@ -13,6 +13,8 @@ import net.edhum.common.command.disabler.list.DisabledCommandList;
 import net.edhum.common.command.disabler.list.DisabledCommandListProvider;
 import net.edhum.common.command.dispatcher.CommandDispatcher;
 import net.edhum.common.command.dispatcher.CommandDispatcherImpl;
+import net.edhum.common.command.enabler.CommandEnabler;
+import net.edhum.common.command.enabler.CommandEnablerImpl;
 import net.edhum.common.command.execution.CommandExecutionHandler;
 import net.edhum.common.command.execution.CommandExecutionHandlerImpl;
 import net.edhum.common.command.execution.buffer.ArgumentBuffer;
@@ -65,6 +67,7 @@ public class CommandModule extends AbstractModule {
         bind(CommandResultHandler.class).to(LoggedCommandResultHandler.class);
 
         bind(CommandDisabler.class).to(CommandDisablerImpl.class);
+        bind(CommandEnabler.class).to(CommandEnablerImpl.class);
 
         bind(CommandRepository.class).to(PluginCachedCommandRepository.class).asEagerSingleton();
 
