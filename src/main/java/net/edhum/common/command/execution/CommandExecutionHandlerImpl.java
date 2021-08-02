@@ -37,7 +37,7 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
     }
 
     @Override
-    public void handleExecution(CommandNode node, CommandSender sender, CommandLineBuffer buffer) throws ArgumentException, InvalidNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
+    public void handleExecution(CommandNode node, CommandSender sender, CommandLineBuffer buffer) throws ArgumentException, UnknownNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
         Command command = node.getCommand();
 
         Optional<String> optionalInvalidPermission = this.commandPermissionHandler.hasPermission(command, sender);
@@ -65,7 +65,7 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
                     .toList();
 
             if (node.hasChildren() && childNodes.isEmpty()) {
-                throw new InvalidNodeException(node);
+                throw new UnknownNodeException(node);
             }
         }
 

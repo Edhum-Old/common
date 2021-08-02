@@ -2,11 +2,11 @@ package net.edhum.common.command.execution.exceptions;
 
 import net.edhum.common.command.CommandNode;
 
-public class InvalidNodeException extends Exception {
+public class UnknownNodeException extends Exception {
 
     private final CommandNode node;
 
-    public InvalidNodeException(CommandNode node) {
+    public UnknownNodeException(CommandNode node) {
         this.node = node;
     }
 
