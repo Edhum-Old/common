@@ -2,13 +2,15 @@ package net.edhum.common.command.repository;
 
 import com.google.inject.Inject;
 import net.edhum.common.command.CommandTree;
-import net.edhum.common.repository.AbstractPluginCachedRepository;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class PluginCachedCommandRepository extends AbstractPluginCachedRepository<CommandTree> implements CommandRepository {
+public class PluginCachedCommandRepository implements CommandRepository {
 
     private final Map<String, CommandTree> commands;
 
@@ -31,7 +33,21 @@ public class PluginCachedCommandRepository extends AbstractPluginCachedRepositor
     }
 
     @Override
-    protected Collection<CommandTree> getValues() {
-        return this.commands.values();
+    public boolean contains(Predicate<CommandTree> predicate) {
+        return this.find(predicate).isPresent();
+    }
+
+    @Override
+    public Optional<CommandTree> find(Predicate<CommandTree> predicate) {
+        return this.commands.values().stream()
+                .filter(predicate)
+                .findAny();
+    }
+
+    @Override
+    public Collection<CommandTree> findAll(Predicate<CommandTree> predicate) {
+        return this.commands.values().stream()
+                .filter(predicate)
+                .collect(Collectors.toSet());
     }
 }

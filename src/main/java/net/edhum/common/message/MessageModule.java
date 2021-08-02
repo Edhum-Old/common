@@ -18,7 +18,6 @@ public class MessageModule extends AbstractModule {
 
         install(new FactoryModuleBuilder()
                 .implement(ReceiverContext.class, Names.named("single"), SingleReceiverContext.class)
-                .implement(ReceiverContext.class, Names.named("broadcast"), BroadcastReceiverContext.class)
                 .build(ReceiverContextFactory.class));
 
         install(new FactoryModuleBuilder()

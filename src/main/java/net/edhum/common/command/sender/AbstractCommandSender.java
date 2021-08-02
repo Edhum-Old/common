@@ -20,9 +20,4 @@ public abstract class AbstractCommandSender implements CommandSender {
     public Language getLanguage() {
         return this.language;
     }
-
-    @Override
-    public boolean hasPermission(String permission) {
-        return permission == null || permission.isEmpty();
-    }
 }
