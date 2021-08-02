@@ -1,7 +1,7 @@
 package net.edhum.common.message.template.freemarker;
 
 import com.google.inject.Inject;
-import net.edhum.common.i18n.language.Language;
+import net.edhum.common.i18n.Language;
 import net.edhum.common.message.MessagePath;
 import net.edhum.common.message.template.TemplateFolder;
 

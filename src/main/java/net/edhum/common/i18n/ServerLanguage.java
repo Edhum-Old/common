@@ -1,4 +1,4 @@
-package net.edhum.common.i18n.language;
+package net.edhum.common.i18n;
 
 import com.google.inject.BindingAnnotation;
 

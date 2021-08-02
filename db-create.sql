@@ -1,12 +1,24 @@
-CREATE TABLE IF NOT EXISTS languages
+CREATE TABLE IF NOT EXISTS nations
 (
-    id   TINYINT,
-    tag  VARCHAR(255) UNIQUE,
-    name VARCHAR(255) UNIQUE,
+    id          INT,
+    name        VARCHAR(255),
+    description VARCHAR(255),
     PRIMARY KEY (id)
 );
 
-INSERT INTO languages
-VALUES (1, 'ar-AR', 'arabic'),
-       (2, 'en-EN', 'english'),
-       (3, 'fr-FR', 'french');
+CREATE TABLE IF NOT EXISTS nation_profiles
+(
+    uuid      VARCHAR(255) REFERENCES players (uuid),
+    nation_id INT REFERENCES nations (id),
+    role_id   TINYINT REFERENCES nation_roles (id),
+    PRIMARY KEY (uuid)
+);
+
+CREATE TABLE IF NOT EXISTS players
+(
+    uuid        VARCHAR(255),
+    group_id    TINYINT REFERENCES `groups` (id),
+    language_id TINYINT,
+    money       INT,
+    PRIMARY KEY (uuid)
+);

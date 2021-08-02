@@ -2,7 +2,7 @@ package net.edhum.common.player;
 
 import net.edhum.common.command.sender.CommandSender;
 import net.edhum.common.group.Group;
-import net.edhum.common.i18n.language.Language;
+import net.edhum.common.i18n.Language;
 
 import java.util.UUID;
 

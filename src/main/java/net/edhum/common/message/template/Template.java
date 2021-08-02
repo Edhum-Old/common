@@ -1,6 +1,6 @@
 package net.edhum.common.message.template;
 
-import net.edhum.common.i18n.language.Language;
+import net.edhum.common.i18n.Language;
 import net.edhum.common.message.MessagePath;
 
 public interface Template {

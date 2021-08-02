@@ -1,6 +1,6 @@
 package net.edhum.common.command.sender;
 
-import net.edhum.common.i18n.language.Language;
+import net.edhum.common.i18n.Language;
 import net.kyori.adventure.text.Component;
 
 public abstract class AbstractCommandSender implements CommandSender {

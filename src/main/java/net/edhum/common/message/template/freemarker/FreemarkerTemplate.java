@@ -2,7 +2,7 @@ package net.edhum.common.message.template.freemarker;
 
 import com.google.inject.assistedinject.AssistedInject;
 import freemarker.template.Configuration;
-import net.edhum.common.i18n.language.Language;
+import net.edhum.common.i18n.Language;
 import net.edhum.common.message.MessagePath;
 import net.edhum.common.message.template.Template;
 import net.edhum.common.message.template.freemarker.configuration.FreemarkerConfigurationProvider;

@@ -1,1 +1,7 @@
-DROP TABLE IF EXISTS languages;
+DROP TABLE IF EXISTS `groups`;
+
+DROP TABLE IF EXISTS nations;
+
+DROP TABLE IF EXISTS nation_profiles;
+
+DROP TABLE IF EXISTS players;
