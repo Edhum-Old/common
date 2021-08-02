@@ -1,18 +1,9 @@
 package net.edhum.common.command.repository;
 
 import net.edhum.common.command.CommandTree;
+import net.edhum.common.repository.Repository;
 
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-
-public interface CommandRepository {
+public interface CommandRepository extends Repository<CommandTree> {
 
     void add(CommandTree command);
-
-    boolean contains(Predicate<CommandTree> filter);
-
-    Optional<CommandTree> find(Predicate<CommandTree> filter);
-
-    Set<CommandTree> findAll(Predicate<CommandTree> filter);
 }

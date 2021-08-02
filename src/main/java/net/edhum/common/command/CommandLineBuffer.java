@@ -3,17 +3,17 @@ package net.edhum.common.command;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public class StringBuffer {
+public class CommandLineBuffer {
 
     private final String[] input;
     private int cursor;
 
-    public StringBuffer(String[] input) {
+    public CommandLineBuffer(String[] input) {
         this.input = input;
         this.cursor = 0;
     }
 
-    public StringBuffer(String input) {
+    public CommandLineBuffer(String input) {
         this(input.split(" "));
     }
 

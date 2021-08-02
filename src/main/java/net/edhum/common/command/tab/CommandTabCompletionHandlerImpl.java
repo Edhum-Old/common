@@ -3,7 +3,7 @@ package net.edhum.common.command.tab;
 import com.google.inject.Inject;
 import net.edhum.common.command.Command;
 import net.edhum.common.command.CommandNode;
-import net.edhum.common.command.StringBuffer;
+import net.edhum.common.command.CommandLineBuffer;
 import net.edhum.common.command.argument.Argument;
 import net.edhum.common.command.permission.CommandPermissionHandler;
 import net.edhum.common.command.sender.CommandSender;
@@ -23,7 +23,7 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
     }
 
     @Override
-    public List<String> handleTabCompletion(CommandNode node, CommandSender sender, StringBuffer buffer) {
+    public List<String> handleTabCompletion(CommandNode node, CommandSender sender, CommandLineBuffer buffer) {
         Command command = node.getCommand();
 
         if (!this.commandPermissionHandler.canExecute(command, sender)) {

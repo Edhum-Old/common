@@ -3,7 +3,7 @@ package net.edhum.common.command.execution;
 import com.google.inject.Inject;
 import net.edhum.common.command.Command;
 import net.edhum.common.command.CommandNode;
-import net.edhum.common.command.StringBuffer;
+import net.edhum.common.command.CommandLineBuffer;
 import net.edhum.common.command.argument.Argument;
 import net.edhum.common.command.argument.ArgumentParser;
 import net.edhum.common.command.argument.exception.ArgumentException;
@@ -37,7 +37,7 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
     }
 
     @Override
-    public void handleExecution(CommandNode node, CommandSender sender, StringBuffer buffer) throws ArgumentException, InvalidNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
+    public void handleExecution(CommandNode node, CommandSender sender, CommandLineBuffer buffer) throws ArgumentException, InvalidNodeException, InvalidPermissionException, InvalidRequirementException, InvalidSyntaxException {
         Command command = node.getCommand();
 
         Optional<String> optionalInvalidPermission = this.commandPermissionHandler.hasPermission(command, sender);

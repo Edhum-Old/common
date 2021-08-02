@@ -1,3 +1,5 @@
+-- TODO Change types
+
 CREATE TABLE IF NOT EXISTS nations
 (
     id          INT,
@@ -10,15 +12,16 @@ CREATE TABLE IF NOT EXISTS nation_profiles
 (
     uuid      VARCHAR(255) REFERENCES players (uuid),
     nation_id INT REFERENCES nations (id),
-    role_id   TINYINT REFERENCES nation_roles (id),
+    role_id   TINYINT,
     PRIMARY KEY (uuid)
 );
 
 CREATE TABLE IF NOT EXISTS players
 (
     uuid        VARCHAR(255),
-    group_id    TINYINT REFERENCES `groups` (id),
+    name        VARCHAR(255),
+    group_id    TINYINT,
     language_id TINYINT,
-    money       INT,
+    money       BIGINT,
     PRIMARY KEY (uuid)
 );

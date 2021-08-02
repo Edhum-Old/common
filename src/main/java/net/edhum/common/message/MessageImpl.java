@@ -2,9 +2,9 @@ package net.edhum.common.message;
 
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import net.edhum.common.command.sender.CommandSender;
 import net.edhum.common.message.context.receiver.ReceiverContext;
 import net.edhum.common.message.context.writer.WriterContext;
-import net.edhum.common.player.Player;
 import net.edhum.common.plugin.annotations.PluginLogger;
 
 import java.util.Collection;
@@ -24,7 +24,7 @@ public class MessageImpl implements Message {
 
     @Override
     public void write(ReceiverContext receiverContext, WriterContext writer) {
-        Collection<Player> receivers = receiverContext.getReceivers();
+        Collection<? extends CommandSender> receivers = receiverContext.getReceivers();
 
         try {
             writer.write(this.context, receivers);

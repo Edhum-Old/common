@@ -2,6 +2,7 @@ package net.edhum.common.message.context.receiver;
 
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+import net.edhum.common.command.sender.CommandSender;
 import net.edhum.common.player.Player;
 import net.edhum.common.player.repository.PlayerRepository;
 
@@ -33,7 +34,7 @@ public class BroadcastReceiverContext implements ReceiverContext {
     }
 
     @Override
-    public Collection<Player> getReceivers() {
+    public Collection<? extends CommandSender> getReceivers() {
         return this.playerRepository.findAll(player -> !this.blacklisted.contains(player));
     }
 }

@@ -1,10 +1,10 @@
 package net.edhum.common.message.context.receiver;
 
-import net.edhum.common.player.Player;
+import net.edhum.common.command.sender.CommandSender;
 
 import java.util.Collection;
 
 public interface ReceiverContext {
 
-    Collection<Player> getReceivers();
+    Collection<? extends CommandSender> getReceivers();
 }

@@ -18,6 +18,6 @@ public class UUIDFilter implements Predicate<Player> {
 
     @Override
     public boolean test(Player player) {
-        return player.getUniqueId().equals(this.uuid);
+        return player.getProfile().getUniqueId().equals(this.uuid);
     }
 }

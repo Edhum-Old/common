@@ -17,6 +17,6 @@ public class NameFilter implements Predicate<Player> {
 
     @Override
     public boolean test(Player player) {
-        return player.getName().equalsIgnoreCase(this.name);
+        return player.getProfile().getName().equalsIgnoreCase(this.name);
     }
 }

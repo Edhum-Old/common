@@ -2,51 +2,36 @@ package net.edhum.common.command.repository;
 
 import com.google.inject.Inject;
 import net.edhum.common.command.CommandTree;
+import net.edhum.common.repository.AbstractPluginCachedRepository;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-public class PluginCachedCommandRepository implements CommandRepository {
+public class PluginCachedCommandRepository extends AbstractPluginCachedRepository<CommandTree> implements CommandRepository {
 
-    private final Set<CommandTree> commands;
+    private final Map<String, CommandTree> commands;
 
     @Inject
     public PluginCachedCommandRepository() {
-        this.commands = new HashSet<>();
+        this.commands = new HashMap<>();
     }
 
     @Override
     public void add(CommandTree command) {
-        if (this.commands.contains(command)) {
-            String root = command.getRoot().getCommand().getName();
+        String name = command.getRoot().getCommand().getName();
 
+        if (this.commands.containsKey(name)) {
             throw new IllegalStateException(
-                    String.format("%s has already been registered", root)
+                    String.format("%s has already been registered", name)
             );
         }
 
-        this.commands.add(command);
+        this.commands.put(name, command);
     }
 
     @Override
-    public boolean contains(Predicate<CommandTree> filter) {
-        return this.find(filter).isPresent();
-    }
-
-    @Override
-    public Optional<CommandTree> find(Predicate<CommandTree> filter) {
-        return this.commands.stream()
-                .filter(filter)
-                .findAny();
-    }
-
-    @Override
-    public Set<CommandTree> findAll(Predicate<CommandTree> filter) {
-        return this.commands.stream()
-                .filter(filter)
-                .collect(Collectors.toUnmodifiableSet());
+    protected Collection<CommandTree> getValues() {
+        return this.commands.values();
     }
 }
