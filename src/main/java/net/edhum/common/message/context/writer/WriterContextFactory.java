@@ -5,6 +5,4 @@ import javax.inject.Named;
 public interface WriterContextFactory {
 
     @Named("chat") WriterContext chat();
-
-    @Named("string") WriterContext string();
 }

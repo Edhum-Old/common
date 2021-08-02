@@ -5,7 +5,6 @@ import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.name.Names;
 import net.edhum.common.message.context.receiver.*;
 import net.edhum.common.message.context.writer.ChatWriterContext;
-import net.edhum.common.message.context.writer.StringWriterContext;
 import net.edhum.common.message.context.writer.WriterContext;
 import net.edhum.common.message.context.writer.WriterContextFactory;
 import net.edhum.common.message.template.TemplateModule;
@@ -22,7 +21,6 @@ public class MessageModule extends AbstractModule {
 
         install(new FactoryModuleBuilder()
                 .implement(WriterContext.class, Names.named("chat"), ChatWriterContext.class)
-                .implement(WriterContext.class, Names.named("string"), StringWriterContext.class)
                 .build(WriterContextFactory.class));
 
         install(new FactoryModuleBuilder()
