@@ -1,5 +1,6 @@
 package net.edhum.common.command;
 
+import com.google.inject.Inject;
 import net.edhum.common.command.argument.Argument;
 import net.edhum.common.command.argument.ArgumentImpl;
 import net.edhum.common.command.argument.ArgumentParser;
@@ -21,6 +22,7 @@ public class CommandBuilder {
     private final List<Argument> arguments;
     private CommandExecutor executor;
 
+    @Inject
     public CommandBuilder() {
         this.aliases = new ArrayList<>();
         this.requirements = new ArrayList<>();

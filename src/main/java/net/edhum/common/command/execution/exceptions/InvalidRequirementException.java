@@ -1,16 +1,16 @@
 package net.edhum.common.command.execution.exceptions;
 
-import net.edhum.common.command.requirement.Requirement;
+import net.edhum.common.message.Message;
 
 public class InvalidRequirementException extends Exception {
 
-    private final Requirement requirement;
+    private final Message error;
 
-    public InvalidRequirementException(Requirement requirement) {
-        this.requirement = requirement;
+    public InvalidRequirementException(Message error) {
+        this.error = error;
     }
 
-    public Requirement getRequirement() {
-        return requirement;
+    public Message getError() {
+        return error;
     }
 }

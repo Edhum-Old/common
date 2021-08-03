@@ -1,14 +1,16 @@
 package net.edhum.common.command.argument.exception;
 
+import net.edhum.common.message.Message;
+
 public class ArgumentException extends Exception {
 
-    private final String error;
+    private final Message error;
 
-    public ArgumentException(String error) {
+    public ArgumentException(Message error) {
         this.error = error;
     }
 
-    public String getError() {
+    public Message getError() {
         return error;
     }
 }

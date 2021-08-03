@@ -37,6 +37,7 @@ public class TemplateModule extends AbstractModule {
         return dataFolder.resolve(TEMPLATE_FOLDER);
     }
 
+    @SuppressWarnings("BindingAnnotationWithoutInject")
     @CheckedProvides(FreemarkerConfigurationProvider.class)
     public Configuration provideConfiguration(@TemplateFolder Path templateFolder) throws IOException {
         Configuration configuration = new Configuration(FREEMARKER_VERSION);

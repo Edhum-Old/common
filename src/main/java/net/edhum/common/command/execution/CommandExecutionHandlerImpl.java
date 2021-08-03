@@ -49,7 +49,7 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
         Optional<Requirement> optionalInvalidRequirement = this.commandPermissionHandler.checkRequirements(command, sender);
 
         if (optionalInvalidRequirement.isPresent()) {
-            throw new InvalidRequirementException(optionalInvalidRequirement.get());
+            throw new InvalidRequirementException(optionalInvalidRequirement.get().getErrorMessage());
         }
 
         List<CommandNode> childNodes = new ArrayList<>();

@@ -28,7 +28,6 @@ public class MessageModule extends AbstractModule {
                 .build(MessageFactory.class));
 
         install(new FactoryModuleBuilder()
-                .implement(MessageBuilder.class, MessageBuilder.class)
                 .build(MessageBuilderFactory.class));
     }
 }

@@ -1,8 +1,6 @@
 package net.edhum.common.command;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CommandNode {
 
@@ -28,6 +26,21 @@ public class CommandNode {
 
     public Optional<CommandNode> getParent() {
         return Optional.ofNullable(this.parent);
+    }
+
+    public Deque<CommandNode> getPath() {
+        Deque<CommandNode> path = new ArrayDeque<>();
+        path.addFirst(this);
+
+        Optional<CommandNode> optionalParent = this.getParent();
+        while (optionalParent.isPresent()) {
+            CommandNode parent = optionalParent.get();
+            path.addFirst(parent);
+
+            optionalParent = parent.getParent();
+        }
+
+        return path;
     }
 
     public Command getCommand() {
