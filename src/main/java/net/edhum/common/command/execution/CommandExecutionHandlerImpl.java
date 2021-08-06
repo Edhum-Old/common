@@ -55,9 +55,10 @@ public class CommandExecutionHandlerImpl implements CommandExecutionHandler {
         List<CommandNode> childNodes = new ArrayList<>();
 
         if (!buffer.isEmpty()) {
+            String argument = buffer.next();
+
             childNodes = node.getChildren().stream()
                     .filter(childNode -> {
-                        String argument = buffer.next();
                         Command childCommand = childNode.getCommand();
 
                         return childCommand.getName().equalsIgnoreCase(argument) || childCommand.getAliases().contains(argument);

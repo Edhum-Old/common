@@ -17,14 +17,6 @@ public class CommandLineBuffer {
         this(input.split(" "));
     }
 
-    public void consume() {
-        if (this.isEmpty()) {
-            throw new NoSuchElementException("No element remaining in the buffer");
-        }
-
-        this.cursor++;
-    }
-
     public boolean isEmpty() {
         return this.cursor >= this.input.length;
     }
@@ -46,5 +38,13 @@ public class CommandLineBuffer {
         this.cursor = this.input.length;
 
         return remains;
+    }
+
+    public void consume() {
+        if (this.isEmpty()) {
+            throw new NoSuchElementException("No element remaining in the buffer");
+        }
+
+        this.cursor++;
     }
 }
