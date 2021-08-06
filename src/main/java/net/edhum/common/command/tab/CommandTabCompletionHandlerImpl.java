@@ -2,8 +2,8 @@ package net.edhum.common.command.tab;
 
 import com.google.inject.Inject;
 import net.edhum.common.command.Command;
-import net.edhum.common.command.CommandNode;
 import net.edhum.common.command.CommandLineBuffer;
+import net.edhum.common.command.CommandNode;
 import net.edhum.common.command.argument.Argument;
 import net.edhum.common.command.permission.CommandPermissionHandler;
 import net.edhum.common.command.sender.CommandSender;
@@ -34,9 +34,9 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
 
         List<CommandNode> childNodes = node.getChildren().stream()
                 .filter(childNode -> {
-                    Command childCommand = node.getCommand();
+                    String childCommandName = childNode.getCommand().getName();
 
-                    return childCommand.getName().equalsIgnoreCase(argument);
+                    return childCommandName.equalsIgnoreCase(argument);
                 })
                 .toList();
 
@@ -45,6 +45,8 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
         }
 
         if (childNodes.size() == 1) {
+            buffer.consume();
+
             CommandNode childNode = childNodes.get(0);
 
             return this.handleTabCompletion(childNode, sender, buffer);
@@ -57,19 +59,14 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
                     })
                     .toList());
 
-
             if (!matchingChildNodes.isEmpty()) {
                 // Sender is tipping a command node
-
                 return matchingChildNodes.stream()
                         .map(childNode -> childNode.getCommand().getName())
                         .sorted()
                         .toList();
             } else {
                 // Sender is tipping an argument
-
-                List<String> tabCompletion = new ArrayList<>();
-
                 List<Argument> commandArguments = command.getArguments();
 
                 String[] arguments = buffer.remains();
@@ -78,16 +75,15 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
                         .filter(Argument::isRequired)
                         .count();
 
-                if (arguments.length > requiredCommandArguments && arguments.length < commandArguments.size()) {
-                    tabCompletion.addAll(commandArguments.get(arguments.length - 1).getParser().tabComplete(sender).stream()
-                            .filter(s ->
-                                    s.startsWith(arguments[arguments.length - 1]))
-                            .collect(Collectors.toList()));
+                if (arguments.length < requiredCommandArguments || arguments.length > commandArguments.size()) {
+                    return Collections.emptyList();
                 }
 
-                Collections.sort(tabCompletion); // Sort the arguments list alphabetically
-
-                return tabCompletion;
+                // Sort the arguments list alphabetically
+                return commandArguments.get(arguments.length - 1).getParser().tabComplete(sender).stream()
+                        .filter(s -> s.startsWith(arguments[arguments.length - 1]))
+                        .sorted()
+                        .collect(Collectors.toList());
             }
         }
     }
