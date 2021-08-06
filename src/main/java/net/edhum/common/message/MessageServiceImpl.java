@@ -2,6 +2,7 @@ package net.edhum.common.message;
 
 import com.google.inject.Inject;
 import net.edhum.common.command.sender.CommandSender;
+import net.edhum.common.i18n.Language;
 import net.edhum.common.i18n.Localised;
 import net.edhum.common.message.context.receiver.ReceiverContext;
 import net.edhum.common.message.context.writer.WriterContext;
@@ -39,10 +40,15 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public String get(Message message, Localised localised) {
+        return this.get(message, localised.getLanguage());
+    }
+
+    @Override
+    public String get(Message message, Language language) {
         Template template = this.templateFactory.createTemplate();
 
         try {
-            return template.render(message, localised.getLanguage());
+            return template.render(message, language).trim();
         } catch (Exception e) {
             e.printStackTrace();
 
