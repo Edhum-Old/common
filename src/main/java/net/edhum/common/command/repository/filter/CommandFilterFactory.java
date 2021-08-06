@@ -6,7 +6,7 @@ import net.edhum.common.command.sender.CommandSender;
 import javax.inject.Named;
 import java.util.function.Predicate;
 
-public interface CommandRepositoryFilterFactory {
+public interface CommandFilterFactory {
 
     @Named("name") Predicate<CommandTree> name(String name);
 

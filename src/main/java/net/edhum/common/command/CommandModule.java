@@ -27,7 +27,7 @@ import net.edhum.common.command.permission.CommandPermissionHandlerImpl;
 import net.edhum.common.command.repository.CommandRepository;
 import net.edhum.common.command.repository.PluginCachedCommandRepository;
 import net.edhum.common.command.repository.filter.CommandNameFilter;
-import net.edhum.common.command.repository.filter.CommandRepositoryFilterFactory;
+import net.edhum.common.command.repository.filter.CommandFilterFactory;
 import net.edhum.common.command.repository.filter.CommandSenderFilter;
 import net.edhum.common.command.tab.CommandTabCompletionHandler;
 import net.edhum.common.command.tab.CommandTabCompletionHandlerImpl;
@@ -51,7 +51,7 @@ public class CommandModule extends AbstractModule {
         install(new FactoryModuleBuilder()
                 .implement(new TypeLiteral<Predicate<CommandTree>>() {}, Names.named("sender"), CommandSenderFilter.class)
                 .implement(new TypeLiteral<Predicate<CommandTree>>() {}, Names.named("name"), CommandNameFilter.class)
-                .build(CommandRepositoryFilterFactory.class));
+                .build(CommandFilterFactory.class));
 
         install(new FactoryModuleBuilder()
                 .implement(ArgumentBuffer.class, QueueArgumentBuffer.class)
