@@ -1,7 +1,6 @@
 package net.edhum.common.command.execution.context;
 
 import net.edhum.common.command.Command;
-import net.edhum.common.command.execution.buffer.ArgumentBuffer;
 import net.edhum.common.command.sender.CommandSender;
 
 public class CommandContext {
