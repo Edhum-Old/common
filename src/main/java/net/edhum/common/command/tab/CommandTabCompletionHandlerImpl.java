@@ -30,6 +30,10 @@ public class CommandTabCompletionHandlerImpl implements CommandTabCompletionHand
             return Collections.emptyList();
         }
 
+        if (buffer.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         String argument = buffer.next();
 
         List<CommandNode> childNodes = node.getChildren().stream()
