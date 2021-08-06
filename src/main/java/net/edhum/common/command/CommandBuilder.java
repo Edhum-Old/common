@@ -87,7 +87,7 @@ public class CommandBuilder {
                 this.aliases
         );
 
-        return new Command(
+        return new CommandImpl(
                 details,
                 this.requirements,
                 this.arguments,

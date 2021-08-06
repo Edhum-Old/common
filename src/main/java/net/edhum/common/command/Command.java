@@ -8,48 +8,19 @@ import net.edhum.common.message.Message;
 import java.util.Collection;
 import java.util.List;
 
-public class Command {
+public interface Command {
 
-    private final CommandDetails details;
-    private final Collection<Requirement> requirements;
-    private final List<Argument> arguments;
-    private final CommandExecutor executor;
+    String getName();
 
-    public Command(CommandDetails details,
-                   Collection<Requirement> requirements,
-                   List<Argument> arguments,
-                   CommandExecutor executor) {
-        this.details = details;
-        this.requirements = requirements;
-        this.arguments = arguments;
-        this.executor = executor;
-    }
+    Message getDescription();
 
-    public String getName() {
-        return this.details.getName();
-    }
+    String getPermission();
 
-    public Message getDescription() {
-        return this.details.getDescription();
-    }
+    List<String> getAliases();
 
-    public String getPermission() {
-        return this.details.getPermission();
-    }
+    Collection<Requirement> getRequirements();
 
-    public List<String> getAliases() {
-        return this.details.getAliases();
-    }
+    List<Argument> getArguments();
 
-    public Collection<Requirement> getRequirements() {
-        return requirements;
-    }
-
-    public List<Argument> getArguments() {
-        return arguments;
-    }
-
-    public CommandExecutor getExecutor() {
-        return executor;
-    }
+    CommandExecutor getExecutor();
 }

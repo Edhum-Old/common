@@ -2,15 +2,10 @@ package net.edhum.common.command.enabler;
 
 import com.google.inject.Inject;
 import net.edhum.common.command.CommandTree;
-import net.edhum.common.command.disabler.list.DisabledCommandList;
-import net.edhum.common.command.disabler.list.DisabledCommandListProvider;
-import net.edhum.common.command.disabler.list.UnavailableDisabledCommandList;
 import net.edhum.common.command.registerer.CommandRegisterer;
 import net.edhum.common.command.repository.CommandRepository;
 import net.edhum.common.plugin.annotations.PluginLogger;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
