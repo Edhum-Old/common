@@ -2,7 +2,7 @@ package net.edhum.common.message.template.freemarker;
 
 import com.google.inject.Inject;
 import net.edhum.common.i18n.Language;
-import net.edhum.common.message.MessagePath;
+import net.edhum.common.message.Message;
 import net.edhum.common.message.template.TemplateFolder;
 
 import java.nio.file.Path;
@@ -18,8 +18,8 @@ public class FreemarkerTemplateLoader {
         this.templateFolder = templateFolder;
     }
 
-    public String getTemplatePath(MessagePath context, Language language) {
-        String templateFileName = String.format("%s.%s", context.getPath(), FREEMARKER_TEMPLATE_FILE_EXTENSION);
+    public String getTemplatePath(Message message, Language language) {
+        String templateFileName = String.format("%s.%s", message.getPath(), FREEMARKER_TEMPLATE_FILE_EXTENSION);
         Path templateFolderPath = this.templateFolder.resolve(language.getTag());
 
         Path templatePath = templateFolderPath.resolve(templateFileName);
