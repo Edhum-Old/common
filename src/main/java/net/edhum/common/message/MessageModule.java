@@ -23,11 +23,6 @@ public class MessageModule extends AbstractModule {
                 .implement(WriterContext.class, Names.named("chat"), ChatWriterContext.class)
                 .build(WriterContextFactory.class));
 
-        install(new FactoryModuleBuilder()
-                .implement(Message.class, MessageImpl.class)
-                .build(MessageFactory.class));
-
-        install(new FactoryModuleBuilder()
-                .build(MessageBuilderFactory.class));
+        bind(MessageService.class).to(MessageServiceImpl.class);
     }
 }

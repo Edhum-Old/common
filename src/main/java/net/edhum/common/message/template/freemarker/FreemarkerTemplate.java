@@ -3,7 +3,7 @@ package net.edhum.common.message.template.freemarker;
 import com.google.inject.assistedinject.AssistedInject;
 import freemarker.template.Configuration;
 import net.edhum.common.i18n.Language;
-import net.edhum.common.message.MessagePath;
+import net.edhum.common.message.Message;
 import net.edhum.common.message.template.Template;
 import net.edhum.common.message.template.freemarker.configuration.FreemarkerConfigurationProvider;
 import net.edhum.common.message.template.freemarker.configuration.UnavailableFreemarkerConfiguration;
@@ -35,7 +35,7 @@ public class FreemarkerTemplate implements Template {
     }
 
     @Override
-    public String render(MessagePath context, Language language) throws Exception {
+    public String render(Message context, Language language) throws Exception {
         String templateFileName = this.loader.getTemplatePath(context, language);
         freemarker.template.Template template = this.configuration.getTemplate(templateFileName);
 
