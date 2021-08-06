@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService {
             writer.write(message, receivers);
         } catch (Exception e) {
             e.printStackTrace();
-            this.logger.warning("This message could not be written");
+            this.logger.warning("This message could not be read");
 
             // TODO: 29/07/2021 Send a default message to the receivers
         }
@@ -51,6 +51,7 @@ public class MessageServiceImpl implements MessageService {
             return template.render(message, language).trim();
         } catch (Exception e) {
             e.printStackTrace();
+            this.logger.warning("This message could not be read");
 
             return ""; // TODO: 06/08/2021 Returns a default message
         }
